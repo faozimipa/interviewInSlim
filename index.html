@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Interview</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- style for number 2 -->
+    <style>
+        .red {
+            background-color: red;
+        }
+    </style>
+
+    <!-- style for number 4 -->
+    <style>
+        #draggablebox {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+            padding: 0.5em; }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>1. Menggunakan Text</h2>
+    <input type="text" id="inputOne">
+    <input type="text" id="inputTwo">
+    <input type="button" id="buttonConcate" value="=">
+    <input type="text" id="resultOne">
+    <hr>
+
+    <h2>2. Box Berjalan</h2>
+    <input type="button" id="buttonMin" value="<<">
+    <input type="button" id="buttonMax" value=">>">
+
+    <input type="text" id="Test">
+    <br>
+    <input type="button" id="1">
+    <input type="button" id="2">
+    <input type="button" id="3">
+    <input type="button" id="4">
+    <input type="button" id="5">
+    <input type="button" id="6">
+    <input type="button" id="7">
+    <input type="button" id="8">
+    <input type="button" id="9">
+    <hr>
+
+    <h2>3. Stopwatch</h2>
+
+    <input type="button" id="controlStopwatch" value="Start">
+    <br>
+    <input type="text" id="hour" value="00">
+    <input type="text" id="minute" value="00">
+    <input type="text" id="second" value="00">
+
+    <hr>
+    <h2>4. Dragable</h2>
+    <div id="draggablebox">
+        <h4>Drag</h4>
+    </div>
+
+
+</div>
+
+<!-- jquery 2.2.4 -->
+<script
+        src="https://code.jquery.com/jquery-2.2.4.js"
+        integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+<!-- jquery ui -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+ <!--kode nomer satu-->
+<script>
+
+    $(document).ready(function() {
+
+        var inputOne = '';
+        var inputTwo = '';
+        var resultOne = '';
+
+        function buttonConcate(inputOne, inputTwo) {
+            resultOne = inputOne.concat(inputTwo);
+            $('#resultOne').val(resultOne);
+        }
+
+        $('#buttonConcate').on('click', function () {
+            inputOne = $('#inputOne').val();
+            inputTwo = $('#inputTwo').val();
+            buttonConcate(inputOne, inputTwo);
+        });
+    });
+
+</script>
+
+<!--kode nomer dua-->
+<script>
+
+    $(document).ready(function() {
+
+        var urutanMin = 1;
+        var urutanMax = 9;
+        var tempIterate = 9;
+        var tempActive = 9;
+        var number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+        $('#'+tempActive).addClass("red");
+
+        function buttonMin(tempIterate) {
+            tempIterate = tempIterate - 1;
+            $('#Test').val(tempIterate);
+            tempActive = tempIterate;
+        }
+
+        function buttonMax(tempIterate) {
+            tempIterate = tempIterate + 1;
+            $('#Test').val(tempIterate);
+            tempActive = tempIterate;
+        }
+
+        function updateColor(tempActive){
+            $('#'+tempActive).addClass("red");
+
+        }
+
+        $('#buttonMin').on('click', function () {
+
+            if (tempActive < 1) {
+                tempIterate = 10;
+                tempActive = 10;
+            }
+            $('#'+tempActive).removeClass("red");
+            buttonMin(tempActive);
+            updateColor(tempActive);
+        });
+
+        $('#buttonMax').on('click', function () {
+            if (tempActive > 9) {
+                tempIterate = 0;
+                tempActive = 0;
+            }
+            $('#'+tempActive).removeClass("red");
+            buttonMax(tempActive);
+            updateColor(tempActive);
+        });
+    });
+
+</script>
+
+<!--kode nomer 3-->
+
+<script>
+
+    $(document).ready(function() {
+
+        var buttonText = $('#controlStopwatch').val();
+        var tempText = 'Start';
+
+        var startTime = new Date();
+        var timeElapsed = new Date().getTime() - startTime.getTime();
+
+
+        $('#controlStopwatch').on('click', function () {
+
+            if (tempText == 'Start') {
+                $('#controlStopwatch').val('Stop');
+                tempText = 'Stop'
+            } else if (tempText == 'Stop') {
+                $('#controlStopwatch').val('Reset');
+                tempText = 'Reset'
+            } else if (tempText == 'Reset') {
+                $('#controlStopwatch').val('Start');
+                tempText = 'Start'
+            }
+        });
+    });
+</script>
+
+<!--kode nomer 4-->
+<script>
+
+    $(document).ready(function() {
+
+        $(function () {
+            $("#draggablebox").draggable();
+        });
+    });
+</script>
+
+</body>
+</html>
